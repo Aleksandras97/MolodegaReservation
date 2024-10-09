@@ -1,6 +1,8 @@
-To start install FastAPI
+To start install FastAPI and necessary packages
 
-```pip install fastapi```
+### for PostgreSQL, or replace with SQLite libraries
+```pip install fastapi uvicorn sqlalchemy pydantic psycopg2```  
+
 
 also install Pydantic for data validation
 
