@@ -10,13 +10,16 @@ def get_user(db: Session, user_id: int):
 def get_user_by_email(db: Session, email: str):
     return db.query(User).filter(User.email == email).first()
 
+def get_user_by_id(db: Session, id: str):
+    return db.query(User).filter(User.id == id).first()
+
 def get_users(db: Session, skip: int = 0, limit: int = 10):
     return db.query(User).offset(skip).limit(limit).all()
 
 def create_user(db: Session, user: UserCreate):
-    print(f"Request data: {user}")
-    hashed_password = sha256(user.password.encode()).hexdigest()
-    db_user = User(id=str(uuid4()), name=user.name, email=user.email, hashed_password=hashed_password)
+    hashed_password = sha256(user.password.encode()).hexdigest() if user.password else None
+    id = user.id if user.id else str(uuid4())
+    db_user = User(id=id, name=user.name, email=user.email, hashed_password=hashed_password)
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
