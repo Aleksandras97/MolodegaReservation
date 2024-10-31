@@ -8,6 +8,10 @@ also install Pydantic for data validation
 
 ```pip install pydantic```
 
+for tests
+
+```pip install pytest httpx pytest-asyncio```
+
 Functional requirements
 - CRUD for the books
 - Crud for Users
