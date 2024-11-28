@@ -5,10 +5,10 @@ from config import telegram_config
 from sqlalchemy.orm import Session
 from fastapi import Depends
 from .database import get_db  # Import the database session dependency
-from .crud import create_user  # Import the function to create a user
-from .schemas import UserCreate  # Import the user schema
+from .repositories.user_repository import create_user  # Import the function to create a user
+from .schemas.user import UserCreate  # Import the user schema
 from sqlalchemy.orm import Session
-from app.models import User
+from app.models.user import User
 
 API_URL = os.getenv("API_URL", "http://localhost:8000")
 TG_BOT_TOKEN = os.getenv('TELEGRAM_BOT_API_TOKEN')

@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from app.models import User
-from app.schemas import UserCreate
+from app.models.user import User
+from app.schemas.user import UserCreate
 from hashlib import sha256
 from uuid import UUID, uuid4
 
