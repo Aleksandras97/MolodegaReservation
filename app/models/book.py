@@ -14,3 +14,5 @@ class Book(Base):
     status = Column(String, nullable=True)
     description = Column(String, nullable=True)
     count = Column(Integer, nullable=False)
+
+    reservations = relationship("Reservation", back_populates="book")
