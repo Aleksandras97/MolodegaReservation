@@ -1,7 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
-from app import crud, models, schemas
+from app.models import user
 from app.database import get_db
+from app.models.user import crud
+from app.schemas import user
 
 router = APIRouter(prefix="/telegram", tags=["telegram"])
 
@@ -26,7 +28,7 @@ async def telegram_webhook(request: Request, db: Session = Depends(get_db)):
                 if user_id:
                     continue
 
-                user = schemas.UserCreate(id=user_id, name=username)
+                user = user.UserCreate(id=user_id, name=username)
 
                 #register the user
                 user = crud.create_user(db, user)

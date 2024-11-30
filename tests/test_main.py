@@ -1,7 +1,7 @@
 import pytest
 from httpx import AsyncClient
 from app.main import app
-from app.models import User
+from app.models.user import User
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from app.database import Base, get_db
