@@ -3,9 +3,9 @@ from datetime import datetime
 from typing import Optional
 
 class ReservationBase(BaseModel):
-    user_id = int
-    book_id = int
-    expiration_at = Optional[datetime] = None
+    user_id: int
+    book_id: int
+    expiration_at: Optional[datetime] = None
 
 class ReservationCreate(ReservationBase):
     pass
@@ -15,4 +15,4 @@ class ReservationResponse(ReservationBase):
     reserved_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True

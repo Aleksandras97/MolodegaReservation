@@ -13,7 +13,7 @@ class UserResponse(BaseModel):
     email: Optional[EmailStr] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class User(BaseModel):
     id: str
@@ -21,4 +21,4 @@ class User(BaseModel):
     email: Optional[EmailStr] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True

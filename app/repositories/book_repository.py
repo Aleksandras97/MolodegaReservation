@@ -11,12 +11,21 @@ def create_book(db: Session, book: BookCreate):
     return db_book
 
 # get book by id
-def get_book(db: Session, book_id: int):
+def get_book_by_id(db: Session, book_id: int):
     return db.query(Book).filter(Book.id == book_id).first()
 
 # get all books
 def get_books(db: Session, skip: int = 0, limit: int = 10):
     return db.query(Book).offset(skip).limit(limit).all()
+
+def search_books(db: Session, search: str, page: int, size: int):
+    query = db.query(Book)
+    if search:
+        query = query.filter(Book.title.ilike(f"%{search}%") | Book.author.ilike(f"%{search}%"))
+
+        total = query.count()
+        books = query.offset((page - 1) * size).limit(size).all()
+        return books, total
 
 # update an existing book
 def update_book(db: Session, book_id: int, book_update: BookUpdate):
