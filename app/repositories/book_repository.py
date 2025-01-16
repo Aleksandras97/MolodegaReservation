@@ -21,11 +21,14 @@ def get_books(db: Session, skip: int = 0, limit: int = 10):
 def search_books(db: Session, search: str, page: int, size: int):
     query = db.query(Book)
     if search:
-        query = query.filter(Book.title.ilike(f"%{search}%") | Book.author.ilike(f"%{search}%"))
+        query = query.filter(
+            Book.title.ilike(f"%{search}%") |
+            Book.author.ilike(f"%{search}%")
+        )
 
-        total = query.count()
-        books = query.offset((page - 1) * size).limit(size).all()
-        return books, total
+    total = query.count()
+    books = query.offset((page - 1) * size).limit(size).all()
+    return books, total
 
 # update an existing book
 def update_book(db: Session, book_id: int, book_update: BookUpdate):
@@ -33,8 +36,24 @@ def update_book(db: Session, book_id: int, book_update: BookUpdate):
     if not db_book:
         return None
     
-    for key, value in book_update.model_dump(exclude_unset=True).items():
-        setattr(db_book, key, value)
+    updates = book_update.model_dump(exclude_unset=True)
+
+    if "title" in updates:
+        db_book.title = updates["title"]
+    if "author" in updates:
+        db_book.author = updates["author"]
+    if "genre" in updates:
+        db_book.genre = updates["genre"]
+    if "isbn" in updates:
+        db_book.isbn = updates["isbn"]
+    if "status" in updates:
+        db_book.status = updates["status"]
+    if "publish_date" in updates:
+        db_book.publish_date = updates["publish_date"]
+    if "description" in updates:
+        db_book.description = updates["description"]
+    if "count" in updates:
+        db_book.count = updates["count"]
 
     db.commit()
     db.refresh(db_book)

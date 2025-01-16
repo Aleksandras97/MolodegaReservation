@@ -6,7 +6,7 @@ from app.telegram_bot import create_bot_app
 
 Base.metadata.create_all(bind=engine)
 
-bot_app = create_bot_app()
+# bot_app = create_bot_app()
 
 app = FastAPI()
 app.include_router(user.router)

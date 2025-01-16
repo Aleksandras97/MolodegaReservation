@@ -23,7 +23,7 @@ def read_user(user_id: str, db: Session = Depends(get_db)):
 @router.get("/", response_model=list[user.User])
 def read_users(skip: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     users = user_repository.get_users(db, skip=skip, limit=limit)
-    return Response(content=users, status_code=200)
+    return users
 
 
 @router.put("/{user_id}", response_model=user.User)

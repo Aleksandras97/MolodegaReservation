@@ -8,23 +8,26 @@ class BookCreate(BaseModel):
     author: str
     genre: str
     isbn: str
+    status: Optional[str] = None
     publish_date: Optional[date] = None
     description: Optional[str] = None
     count: int = Field(..., ge=1) # Must have at least 1 book
 
 # Schema for updating an existing book
 class BookUpdate(BaseModel):
-    title: Optional[str]
-    author: Optional[str]
-    genre: Optional[str]
-    isbn: Optional[str]
-    publish_date: Optional[date]
-    description: Optional[str]
-    count: Optional[int]
+    title: Optional[str] = None
+    author: Optional[str] = None
+    genre: Optional[str] = None
+    isbn: Optional[str] = None
+    status: Optional[str] = None
+    publish_date: Optional[date] = None
+    description: Optional[str] = None
+    count: Optional[int] = None
 
 class BookResponse(BookCreate):
     id: int
-    status: str
+    title: str
+    author: str
 
     class Config:
         from_attributes = True
